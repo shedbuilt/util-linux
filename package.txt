@@ -1,5 +1,5 @@
 NAME=util-linux
-VERSION=2.31.1
-REVISION=4
-SRC=https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz
-SRCMD5=7733b583dcb51518944d42aa62ef19ea
+VERSION=2.32
+REVISION=5
+SRC=https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.tar.xz
+SRCMD5=e0d8a25853f88cd15ff557e5d8cb4ea7
