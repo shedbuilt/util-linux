@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$SHED_BUILDMODE" == 'bootstrap' ]; then
+if [ "$SHED_BUILD_MODE" == 'bootstrap' ]; then
     # Remove temporary symlinks created earlier in the bootstrap
     for SHDPKG_UTILLIB in blkid mount uuid
     do

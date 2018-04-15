@@ -1,5 +1,5 @@
 #!/bin/bash
-case "$SHED_BUILDMODE" in
+case "$SHED_BUILD_MODE" in
     toolchain)
         ./configure --prefix=/tools                \
                     --without-python               \
@@ -10,7 +10,7 @@ case "$SHED_BUILDMODE" in
         ;;
     *)
         # For FHS compliance, use /var/lib/hwclock for adjtime
-        mkdir -pv "${SHED_FAKEROOT}/var/lib/hwclock"
+        mkdir -pv "${SHED_FAKE_ROOT}/var/lib/hwclock"
         ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime \
                 --docdir=/usr/share/doc/util-linux-2.32 \
                 --disable-chfn-chsh \
@@ -24,5 +24,5 @@ case "$SHED_BUILDMODE" in
                 --without-python || exit 1
         ;;
 esac
-make -j $SHED_NUMJOBS &&
-make DESTDIR="$SHED_FAKEROOT" install
+make -j $SHED_NUM_JOBS &&
+make DESTDIR="$SHED_FAKE_ROOT" install
