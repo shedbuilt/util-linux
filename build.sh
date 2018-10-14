@@ -1,14 +1,10 @@
 #!/bin/bash
 declare -A SHED_PKG_LOCAL_OPTIONS=${SHED_PKG_OPTIONS_ASSOC}
-SHED_PKG_LOCAL_PREFIX='/usr'
-if [ -n "${SHED_PKG_LOCAL_OPTIONS[toolchain]}" ]; then
-    SHED_PKG_LOCAL_PREFIX='/tools'
-fi
-SHED_PKG_LOCAL_DOCDIR=${SHED_PKG_LOCAL_PREFIX}/share/doc/${SHED_PKG_NAME}-${SHED_PKG_VERSION}
 # Configure
 if [ -n "${SHED_PKG_LOCAL_OPTIONS[toolchain]}" ]; then
-    ./configure --prefix=${SHED_PKG_LOCAL_PREFIX} \
-                --docdir=${SHED_PKG_LOCAL_DOCDIR} \
+    SHED_PKG_DOCS_INSTALL_DIR="/tools/share/doc/${SHED_PKG_NAME}-${SHED_PKG_VERSION}"
+    ./configure --prefix=/tools \
+                --docdir="$SHED_PKG_DOCS_INSTALL_DIR" \
                 --without-python                  \
                 --disable-makeinstall-chown       \
                 --without-systemdsystemunitdir    \
@@ -18,8 +14,7 @@ else
     # For FHS compliance, use /var/lib/hwclock for adjtime
     mkdir -pv "${SHED_FAKE_ROOT}/var/lib/hwclock" &&
     ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime \
-        --prefix=${SHED_PKG_LOCAL_PREFIX} \
-        --docdir=${SHED_PKG_LOCAL_DOCDIR} \
+        --docdir="$SHED_PKG_DOCS_INSTALL_DIR" \
         --disable-chfn-chsh \
         --disable-login \
         --disable-nologin \
@@ -37,5 +32,5 @@ make DESTDIR="$SHED_FAKE_ROOT" install || exit 1
 
 # Prune Documentation
 if [ -z "${SHED_PKG_LOCAL_OPTIONS[docs]}" ]; then
-    rm -rf "${SHED_FAKE_ROOT}${SHED_PKG_LOCAL_DOCDIR}"
+    rm -rf "${SHED_FAKE_ROOT}${SHED_PKG_DOCS_INSTALL_DIR}"
 fi

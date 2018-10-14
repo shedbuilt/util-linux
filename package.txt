@@ -1,6 +1,6 @@
 NAME=util-linux
 VERSION=2.32.1
-REVISION=2
+REVISION=3
 SRC=https://www.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.1.tar.xz
 SRCMD5=9e5b1b8c1dc99455bdb6b462cf9436d9
 OPTIONS=toolchain|bootstrap|release (docs)
